@@ -100,8 +100,6 @@ class Airplane {
         return string;
       }
     }
-
-    
   }
   
   /*
@@ -157,6 +155,17 @@ class Airplane {
     grade(student, subject) {
       return `${student.name} receives a perfect score on ${subject}`;
     }
+
+    gradeStudent(student) {
+      let random = Math.random()
+      let randomGrade = Math.floor(random * 40);
+      let addSub = Math.floor(random * 2);
+      if (addSub === 1) {
+          return student.grade += randomGrade;
+      } else if (addSub === 0) {
+          return student.grade -= randomGrade;
+      }
+    }
  }
   /*
     TASK 5
@@ -173,26 +182,38 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student extends Lambdasian {
-    constructor(studentAttributes) {
-      super(studentAttributes);
-      this.previousBackground = studentAttributes.previousBackground;
-      this.className = studentAttributes.className;
-      this.favSubjects = studentAttributes.favSubjects;
-    }
-
-    listSubjects() {
-      return `Loving, ${this.favSubjects}`;
-    }
-    PRAssignment(subject) {
-      return `${this.name} has submitted a PR for ${subject}`;
-    }
-
-    sprintChallenge(subject) {
-      return `${this.name} has begun sprint challenge ${subject}`;
-    }
-    
- }
+          class Student extends Lambdasian {
+            constructor(studentAttributes) {
+              super(studentAttributes);
+              this.previousBackground = studentAttributes.previousBackground;
+              this.className = studentAttributes.className;
+              this.favSubjects = studentAttributes.favSubjects;
+              this.grade = 83;
+            }
+        
+            listSubjects() {
+              return `Loving, ${this.favSubjects}`;
+            }
+            PRAssignment(subject) {
+              return `${this.name} has submitted a PR for ${subject}`;
+            }
+        
+            sprintChallenge(subject) {
+              return `${this.name} has begun sprint challenge ${subject}`;
+            }
+        
+            graduate(instructor) {
+                if (this.grade >= 70) {
+                    return `${this.name} has graduated from Lambda!`;
+                } else {
+                    while (this.grade < 70) {
+                        instructor.gradeStudent(this);
+                        return this.graduate(instructor);
+                    }
+                }
+            }
+            
+         }
   
   /*
     TASK 6
